@@ -1,0 +1,762 @@
+<!DOCTYPE html><html><head>
+      <title>2022-12-19-ゆっくりMovieMaker4-立ち絵導入ガイド</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Owner\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.6.7\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="-%E3%82%86%E3%81%A3%E3%81%8F%E3%82%8Amoviemaker4-">ゆっくりMovieMaker4</h1>
+
+<h2 class="mume-header" id="-%E7%AB%8B%E3%81%A1%E7%B5%B5%E5%B0%8E%E5%85%A5%E3%82%AC%E3%82%A4%E3%83%89-">立ち絵導入ガイド</h2>
+
+<p>NovemberBooks</p>
+<hr>
+<p><strong>動作確認環境</strong></p>
+<p>Windows 10 Pro<br>
+サンドボックス環境</p>
+<p>ゆっくりMovieMaker4<br>
+v4.13.1.2</p>
+<hr>
+<p><strong>はじめに</strong></p>
+<p>「ゆっくり実況を始めたい」</p>
+<p>そう思い、いざ『ゆっくりMovieMaker4』をダウンロードしたものの</p>
+<p>「立ち絵を表示させることができない」<br>
+あるいは――<br>
+「立ち絵を表示させることはできたけれど、目パチ・口パクができない」</p>
+<p>そんな壁にぶつかり、ゆっくり実況を始めるどころか始める前の段階で「もういいや」と投げ出していませんか？</p>
+<p>かつてのわたしがまさにその一人でした。</p>
+<p>本書は『ゆっくりMovieMaker4』の最初の壁である「立ち絵の導入」に絞って、解説を行っております。</p>
+<p>解説も操作単位ごとに手順化し、わかりやすさを重視しています。</p>
+<p>一度挫折してしまったユーザーはもちろん、これからゆっくり実況を始めたいと思ったユーザーにも、本書がお役に立てれば幸いです。</p>
+<p>NovemberBooks</p>
+<hr>
+<h1 class="mume-header" id="-%E7%9B%AE%E6%AC%A1-">目次</h1>
+
+<p>はじめに</p>
+<p>第一章<br>
+ゆっくりMovieMaker4の導入手順</p>
+<p>第二章<br>
+ゆっくり霊夢の導入手順</p>
+<p>第三章<br>
+ゆっくり魔理沙の導入手順</p>
+<p>おわりに</p>
+<hr>
+<p>第一章</p>
+<h1 class="mume-header" id="-%E3%82%86%E3%81%A3%E3%81%8F%E3%82%8Amoviemaker4%E3%81%AE%E5%B0%8E%E5%85%A5%E6%89%8B%E9%A0%86-">ゆっくりMovieMaker4の導入手順</h1>
+
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%861%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89-">手順１．ダウンロード</h2>
+
+<p>下記のページを開く<br>
+　　<a href="https://manjubox.net/ymm4/">https://manjubox.net/ymm4/</a><br>
+→ページ中の下記のボタンをクリック（*1）</p>
+<p><img src="images/downloadbutton.png" alt></p>
+<p>*1<br>
+ここでは2023/02/11時点での最新バージョン「v4.13.1.2」を使用する</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%862%E5%B1%95%E9%96%8B--%E5%AE%9F%E8%A1%8C-">手順２．展開 / 実行</h2>
+
+<p>「ダウンロード」フォルダーを開く<br>
+→メニューバーの「表示」<br>
+→「表示/非表示」グループの「ファイル名拡張子」にチェックをつける（*2）</p>
+<p>*2<br>
+「フォルダー」と「圧縮フォルダー」を区別するために、ここではファイル名の拡張子をつけています。</p>
+<p><img src="images/filename-extension.png" alt></p>
+<p>→「YukkuriMovieMaker4.zip」を選択<br>
+→メニューバーの「圧縮フォルダーツール」をクリック<br>
+→ツールバーの「すべて展開」をクリック<br>
+　　「圧縮 (ZIP 形式) フォルダーの展開」ダイアログが開く<br>
+→「展開」をクリック<br>
+　　自動的に「YukkuriMovieMaker4」フォルダーが開く<br>
+→「YukkuriMovieMaker.exe」をダブルクリックして実行<br>
+　　『Windows によって PC が保護されました』と表示された場合<br>
+　　→「詳細情報」をクリック<br>
+　　→「実行」をクリック</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%863%E8%B5%B7%E5%8B%95-">手順３．起動</h2>
+
+<p>初回起動時は「ゆっくりMovieMakerについて」ウィンドウが開く<br>
+→「閉じる」をクリック<br>
+　　「確認」ダイアログが開く<br>
+→ここでは「はい」をクリック</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%864%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A-">手順４．初期設定</h2>
+
+<p>ここではゆっくりMovieMaker4を使用する上で最低限の設定を行っていきます。</p>
+<h3 class="mume-header" id="-%E3%83%9C%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%A0%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%80%E3%83%BC-">ボリュームスライダー</h3>
+
+<p>プレビューエリア右下のボリュームスライダーを右端まで移動する</p>
+<p><img src="images/volumeslider.png" alt></p>
+<h3 class="mume-header" id="-%E8%A8%AD%E5%AE%9A-">設定</h3>
+
+<p>メニューバーの「ファイル」<br>
+→「設定」<br>
+→「全般」を選択して、下記の通りに編集する</p>
+<h4 class="mume-header" id="-%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97-">バックアップ</h4>
+
+<p>→保存間隔「1分」<br>
+→保存上限「120個」（*3）</p>
+<p>*3<br>
+ここでは120個（＝2時間分）と設定しましたが、もちろん任意の設定でかまいません。</p>
+<p><img src="images/backup.png" alt></p>
+<p>→「設定」ウィンドウを右上の「×」をクリックして閉じる</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%865%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%83%BC%E3%81%AE%E4%BD%9C%E6%88%90-">手順５．ライブラリフォルダーの作成</h2>
+
+<p>エクスプローラーで「YukkuriMovieMaker4」フォルダーを開く<br>
+→メニューバーの「ホーム」をクリック<br>
+→ツールバーの「新しいフォルダー」をクリック（*4）<br>
+→フォルダー名に「library」と入力（*5）<br>
+→「Enter」キーで決定</p>
+<p><img src="images/library-folder.png" alt></p>
+<p>*4：「新しいフォルダー」をクリックできない？<br>
+よくある間違いとして圧縮フォルダーの「YukkuriMovieMaker4」を開いている場合があります。<br>
+ファイル名拡張子をつけることで、圧縮フォルダーである場合は「YukkuriMovieMaker4.<strong>zip</strong>」と区別することができます。もしもまだ設定していない場合、手順２に戻って設定することを推奨いたします。</p>
+<p>*5<br>
+「library」フォルダーは立ち絵素材を保存するためのフォルダーです。<br>
+ここでは「library」と名前を付けましたが、フォルダー名は任意の名前でかまいません。<br>
+また、フォルダーを作成する場所も任意の場所でかまいません</p>
+<hr>
+<p>第二章</p>
+<h1 class="mume-header" id="-%E3%82%86%E3%81%A3%E3%81%8F%E3%82%8A%E9%9C%8A%E5%A4%A2%E3%81%AE%E5%B0%8E%E5%85%A5%E6%89%8B%E9%A0%86-">ゆっくり霊夢の導入手順</h1>
+
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%861%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89-">手順１．立ち絵素材のダウンロード</h2>
+
+<p>下記のページを開く<br>
+　　<a href="http://www.nicotalk.com/charasozai_yk.html">http://www.nicotalk.com/charasozai_yk.html</a><br>
+→ページ中の下記のダウンロードリンクをクリック</p>
+<p><img src="images/yukkuri-reimu.png" alt></p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%862%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%81%AE%E5%B1%95%E9%96%8B--%E3%82%B3%E3%83%94%E3%83%BC-">手順２．立ち絵素材の展開 / コピー</h2>
+
+<p>「ダウンロード」フォルダーを開く<br>
+→「ゆっくり霊夢.zip」を選択<br>
+→メニューバーの「圧縮フォルダーツール」をクリック<br>
+→ツールバーの「すべて展開」をクリック<br>
+→「圧縮 (ZIP 形式) フォルダーの展開」ダイアログが開く<br>
+→「展開」をクリック<br>
+　　自動的に「ゆっくり霊夢」フォルダーが開く<br>
+→「ゆっくり霊夢」フォルダーを選択</p>
+<p><img src="images/select-folder-reimu.png" alt></p>
+<p>→メニューバーの「ホーム」をクリック<br>
+→ツールバーの「コピー」をクリック<br>
+→アドレスバーの「↑」をクリック<br>
+→「YukkuriMovieMaker4」フォルダーを開く<br>
+→「libary」フォルダーを開く<br>
+→メニューバーの「ホーム」をクリック<br>
+→ツールバーの「貼り付け」をクリック（*1）</p>
+<p>*1<br>
+「キーボードショートカット」や「ドラッグ＆ドロップ」といった操作がわかる場合、その方法でも、もちろんかまいません。</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%863%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%83%BC%E5%90%8D%E3%81%AE%E5%A4%89%E6%9B%B4-">手順３．フォルダー名の変更</h2>
+
+<p>エクスプローラーで「YukkuriMovieMaker4」フォルダーを開く<br>
+→「library」フォルダーを開く<br>
+→「ゆっくり霊夢」フォルダーを開く<br>
+→「顔」フォルダーを選択</p>
+<p><img src="images/select-folder-face-reimu.png" alt></p>
+<p>→メニューバーの「ホーム」をクリック<br>
+→ツールバーの「名前の変更」をクリック（*2）<br>
+→フォルダーの名前を「他」に変更をする（*3）</p>
+<p><img src="images/rename-reimu.png" alt></p>
+<p>*2<br>
+またはキーボードの「F2」を押下する操作でもかまいません。</p>
+<p>*3：フォルダー名を変更する理由<br>
+フォルダー名が「顔」のままだと、素材フォルダーとしてゆっくりMovieMaker4が認識しないためです。詳しくは下記を参照してください。</p>
+<p><a href="https://manjubox.net/ymm4/faq/%E7%AB%8B%E3%81%A1%E7%B5%B5%E6%A9%9F%E8%83%BD/%E5%8B%95%E3%81%8F%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%81%AE%E4%BD%9C%E3%82%8A%E6%96%B9/#%E7%B4%A0%E6%9D%90%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B">https://manjubox.net/ymm4/faq/立ち絵機能/動く立ち絵素材の作り方/#素材フォルダを作成する</a></p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%864%E3%82%86%E3%81%A3%E3%81%8F%E3%82%8Amoviemaker4%E3%81%AE%E5%AE%9F%E8%A1%8C-">手順４．ゆっくりMovieMaker4の実行</h2>
+
+<p>エクスプローラーで「YukkuriMovieMaker4」フォルダーを開く<br>
+→「YukkuriMovieMaker.exe」を実行<br>
+→メニューバーの「ツール」<br>
+→「動く立ち絵素材マネージャー」をクリック<br>
+　　「動く立ち絵素材マネージャー」が開く<br>
+→「素材を開く」ボタンをクリック</p>
+<p><img src="images/open.png" alt></p>
+<p>→「ゆっくり霊夢」フォルダーを開く<br>
+→「フォルダーの選択」をクリック</p>
+<p><img src="images/selectfolder-reimu.png" alt></p>
+<p>素材一覧に各パーツが表示される</p>
+<p><img src="images/list-reimu.png" alt></p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%865%E7%9B%AE%E3%83%91%E3%83%81%E3%81%AE%E8%A8%AD%E5%AE%9A-">手順５．目パチの設定</h2>
+
+<p><strong>注意点</strong><br>
+以降の手順では、立ち絵素材のファイル名をリネームする処理がゆっくりMovieMaker4によって（バックグラウンドで）行われます。そのため、もしも操作を間違えてしまった場合、掲載したスクリーンショットの通りに表示されないことがあります。</p>
+<p>パーツの一覧から「目」の右向き三角をクリックしてツリーを開く<br>
+→「00」にチェックをつける<br>
+→「01」にチェックをつける<br>
+→「02」にチェックをつける<br>
+→「03」にチェックをつける<br>
+→「04」にチェックをつける<br>
+→「05」にチェックをつける<br>
+→「選択したファイルでアニメーションを作成」ボタンをクリック</p>
+<p><img src="images/create-eyes-reimu.png" alt></p>
+<p>→「00」を選択<br>
+　　サムネイルが表示される</p>
+<p><img src="images/thumbnails-reimu.png" alt></p>
+<p>→パーツ名に「00目パチ」と入力（*4）<br>
+→「Enter」キーで決定<br>
+　　パーツの一覧で名前が「00目パチ」と更新される<br>
+→「00目パチ」の右向き三角をクリックしてツリーを開く<br>
+→任意のサムネイルをクリック<br>
+→「▲」ボタンと「▼」ボタンをクリックして、パーツの順序を下記の通りにする<br>
+　　「00.png」<br>
+　　「00.0.png」<br>
+　　「00.1.png」<br>
+　　「00.2.png」<br>
+　　「00.3.png」<br>
+　　「00.4.png」</p>
+<p><img src="images/switch-eyes-reimu.png" alt></p>
+<p>*4：なんで「目パチ」じゃなくて「00目パチ」なの？<br>
+「一番上に表示されるから」という理由だけです。もちろん任意の名前でもかまいません。</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%866%E5%8F%A3%E3%83%91%E3%82%AF%E3%81%AE%E8%A8%AD%E5%AE%9A-">手順６．口パクの設定</h2>
+
+<p>「再読み込み」ボタンをクリック</p>
+<p><img src="images/reload-reimu.png" alt></p>
+<p>→パーツの一覧から「口」の右向き三角をクリックしてツリーを開く<br>
+→「00」にチェックをつける<br>
+→「01」にチェックをつける<br>
+→「02」にチェックをつける<br>
+→「03」にチェックをつける<br>
+→「04」にチェックをつける<br>
+→「05」にチェックをつける<br>
+→「06」にチェックをつける<br>
+→「選択したファイルでアニメーションを作成」ボタンをクリック</p>
+<p><img src="images/create-lips-reimu.png" alt></p>
+<p>→「00」を選択<br>
+　　サムネイルが表示される<br>
+→パーツ名に「00口パク」と入力<br>
+→「Enter」キーで決定<br>
+　　パーツの一覧で名前が「00口パク」と更新される<br>
+→「00口パク」の右向き三角をクリックしてツリーを開く<br>
+→任意のサムネイルをクリック<br>
+→「▲」ボタンと「▼」ボタンをクリックして、パーツの順序を下記の通りにする<br>
+　　「00.png」<br>
+　　「00.0.png」<br>
+　　「00.1.png」<br>
+　　「00.2.png」<br>
+　　「00.3.png」<br>
+　　「00.4.png」<br>
+　　「00.5.png」</p>
+<p><img src="images/switch-lips-reimu.png" alt></p>
+<p>→「動く立ち絵素材マネージャー」ウィンドウを右上の「×」で閉じる</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%867%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%81%AE%E8%A8%AD%E5%AE%9A-">手順７．キャラクターの設定</h2>
+
+<p>メニューバーの「ファイル」<br>
+→「キャラクターの編集」<br>
+　　「キャラクター設定」ウィンドウが開く<br>
+→キャラクターの一覧から「ゆっくり霊夢」を選択して、下記の通りに編集する</p>
+<h3 class="mume-header" id="-%E3%83%9C%E3%82%A4%E3%82%B9-">ボイス</h3>
+
+<p>→音量「100」に設定する</p>
+<p><img src="images/volume-reimu.png" alt></p>
+<h3 class="mume-header" id="%E7%AB%8B%E3%81%A1%E7%B5%B5-">立ち絵</h3>
+
+<p>→種類「動く立ち絵」を選択<br>
+→「フォルダを開く」ボタンをクリック<br>
+→「ゆっくり霊夢」フォルダーを開く<br>
+→「フォルダーの選択」をクリック<br>
+→まばたき開始「1秒」（*5）<br>
+→まばたき間隔「1秒」（*5）</p>
+<p><img src="images/standing-picture-reimu.png" alt></p>
+<p>*5<br>
+ここでの設定は目パチをテストするための設定です。<br>
+あとで元に戻すか、任意の値に変更してください。</p>
+<h3 class="mume-header" id="-%E7%AB%8B%E3%81%A1%E7%B5%B5--%E7%AB%8B%E3%81%A1%E7%B5%B5%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0-">立ち絵 / 立ち絵アイテム</h3>
+
+<p>→拡大率「500%」（*6）</p>
+<p>→目「未選択」をクリック<br>
+→「00目パチ.png」を選択<br>
+→口「未選択」をクリック<br>
+→「00口パク.png」を選択<br>
+→体「未選択」をクリック<br>
+→「00.png」を選択</p>
+<p><img src="images/standing-picture-item-reimu.png" alt></p>
+<p>→「キャラクター設定」ウィンドウを右上の「×」で閉じる</p>
+<p>*6<br>
+ここでの設定はあくまで仮の設定です。<br>
+（元の画像サイズが小さいため、拡大している）<br>
+あとで元に戻すか、任意の値に変更してください。</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%868%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E5%86%8D%E7%94%9F-">手順８．プレビュー再生</h2>
+
+<p>→ツールバーの「立ち絵アイテム」をクリック<br>
+　　立ち絵が表示される</p>
+<p><img src="images/toolbar-reimu.png" alt></p>
+<p>→セリフ入力欄に任意のテキストを入力<br>
+　　ここでは「ゆっくりしていってね」と入力<br>
+→「追加」ボタンをクリック（*7）<br>
+→「再生」ボタンをクリック（*8）</p>
+<p><img src="images/preview-reimu.png" alt></p>
+<p>ゆっくりボイスが聞こえたらOKです。</p>
+<p>*7<br>
+または「Enter」キーを押下する操作でもかまいません。</p>
+<p>*8<br>
+または「Space」キーを押下する操作でもかまいません。</p>
+<h2 class="mume-header" id="-%E3%81%BE%E3%81%A8%E3%82%81-">まとめ</h2>
+
+<p>最終的に</p>
+<ul>
+<li>立ち絵が表示できた</li>
+<li>ゆっくりボイスが再生できた</li>
+<li>目パチができた</li>
+<li>口パクができた</li>
+</ul>
+<p>――以上４つのことが確認できたら、OKです。</p>
+<hr>
+<p>第三章</p>
+<h1 class="mume-header" id="-%E3%82%86%E3%81%A3%E3%81%8F%E3%82%8A%E9%AD%94%E7%90%86%E6%B2%99%E3%81%AE%E5%B0%8E%E5%85%A5%E6%89%8B%E9%A0%86-">ゆっくり魔理沙の導入手順</h1>
+
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%861%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89--1">手順１．立ち絵素材のダウンロード</h2>
+
+<p>下記のページを開く<br>
+　　<a href="http://www.nicotalk.com/charasozai_yk.html">http://www.nicotalk.com/charasozai_yk.html</a><br>
+→ページ中の下記のダウンロードリンクをクリック</p>
+<p><img src="images/yukkuri-marisa.png" alt></p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%862%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%81%AE%E5%B1%95%E9%96%8B--%E3%82%B3%E3%83%94%E3%83%BC--1">手順２．立ち絵素材の展開 / コピー</h2>
+
+<p>「ダウンロード」フォルダーを開く<br>
+→「ゆっくり魔理沙.zip」を選択<br>
+→メニューバーの「圧縮フォルダーツール」をクリック<br>
+→ツールバーの「すべて展開」をクリック<br>
+→「圧縮 (ZIP 形式) フォルダーの展開」ダイアログが開く<br>
+→「展開」をクリック<br>
+　　自動的に「ゆっくり魔理沙」フォルダーが開く<br>
+→「ゆっくり魔理沙」フォルダーを選択</p>
+<p><img src="images/select-folder-marisa.png" alt></p>
+<p>→メニューバーの「ホーム」をクリック<br>
+→ツールバーの「コピー」をクリック<br>
+→アドレスバーの「↑」をクリック<br>
+→「YukkuriMovieMaker4」フォルダーを開く<br>
+→「libary」フォルダーを開く<br>
+→メニューバーの「ホーム」をクリック<br>
+→ツールバーの「貼り付け」をクリック（*1）</p>
+<p>*1<br>
+「キーボードショートカット」や「ドラッグ＆ドロップ」といった操作がわかる場合、その方法でも、もちろんかまいません。</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%863%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%83%BC%E5%90%8D%E3%81%AE%E5%A4%89%E6%9B%B4--1">手順３．フォルダー名の変更</h2>
+
+<p>エクスプローラーで「YukkuriMovieMaker4」フォルダーを開く<br>
+→「library」フォルダーを開く<br>
+→「ゆっくり魔理沙」フォルダーを開く<br>
+→「顔」フォルダーを選択</p>
+<p><img src="images/select-folder-face-marisa.png" alt></p>
+<p>→メニューバーの「ホーム」をクリック<br>
+→ツールバーの「名前の変更」をクリック（*2）<br>
+→フォルダーの名前を「他」に変更をする（*3）</p>
+<p><img src="images/rename-marisa.png" alt></p>
+<p>*2<br>
+またはキーボードの「F2」を押下する操作でもかまいません。</p>
+<p>*3：フォルダー名を変更する理由<br>
+フォルダー名が「顔」のままだと、素材フォルダーとしてゆっくりMovieMaker4が認識しないためです。詳しくは下記を参照してください。</p>
+<p><a href="https://manjubox.net/ymm4/faq/%E7%AB%8B%E3%81%A1%E7%B5%B5%E6%A9%9F%E8%83%BD/%E5%8B%95%E3%81%8F%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%81%AE%E4%BD%9C%E3%82%8A%E6%96%B9/#%E7%B4%A0%E6%9D%90%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B">https://manjubox.net/ymm4/faq/立ち絵機能/動く立ち絵素材の作り方/#素材フォルダを作成する</a></p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%864%E3%82%86%E3%81%A3%E3%81%8F%E3%82%8Amoviemaker4%E3%81%AE%E5%AE%9F%E8%A1%8C--1">手順４．ゆっくりMovieMaker4の実行</h2>
+
+<p>エクスプローラーで「YukkuriMovieMaker4」フォルダーを開く<br>
+→「YukkuriMovieMaker.exe」を実行<br>
+→メニューバーの「ツール」<br>
+→「動く立ち絵素材マネージャー」をクリック<br>
+　　「動く立ち絵素材マネージャー」が開く<br>
+→「素材を開く」ボタンをクリック</p>
+<p><img src="images/open.png" alt></p>
+<p>→「ゆっくり魔理沙」フォルダーを開く<br>
+→「フォルダーの選択」をクリック</p>
+<p><img src="images/selectfolder-marisa.png" alt></p>
+<p>素材一覧に各パーツが表示される</p>
+<p><img src="images/list-marisa.png" alt></p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%865%E7%9B%AE%E3%83%91%E3%83%81%E3%81%AE%E8%A8%AD%E5%AE%9A--1">手順５．目パチの設定</h2>
+
+<p><strong>注意点</strong><br>
+以降の手順では、立ち絵素材のファイル名をリネームする処理がゆっくりMovieMaker4によって（バックグラウンドで）行われます。そのため、もしも操作を間違えてしまった場合、掲載したスクリーンショットの通りに表示されないことがあります。</p>
+<p>パーツの一覧から「目」の右向き三角をクリックしてツリーを開く<br>
+→「00」にチェックをつける<br>
+→「01」にチェックをつける<br>
+→「02」にチェックをつける<br>
+→「03」にチェックをつける<br>
+→「04」にチェックをつける<br>
+→「05」にチェックをつける<br>
+→「選択したファイルでアニメーションを作成」ボタンをクリック</p>
+<p><img src="images/create-eyes-marisa.png" alt></p>
+<p>→「00」を選択<br>
+　　サムネイルが表示される</p>
+<p><img src="images/thumbnails-marisa.png" alt></p>
+<p>→パーツ名に「00目パチ」と入力（*4）<br>
+→「Enter」キーで決定<br>
+　　パーツの一覧で名前が「00目パチ」と更新される<br>
+→「00目パチ」の右向き三角をクリックしてツリーを開く<br>
+→任意のサムネイルをクリック<br>
+→「▲」ボタンと「▼」ボタンをクリックして、パーツの順序を下記の通りにする<br>
+　　「00.png」<br>
+　　「00.0.png」<br>
+　　「00.1.png」<br>
+　　「00.2.png」<br>
+　　「00.3.png」<br>
+　　「00.4.png」</p>
+<p><img src="images/switch-eyes-marisa.png" alt></p>
+<p>*4：なんで「目パチ」じゃなくて「00目パチ」なの？<br>
+「一番上に表示されるから」という理由だけです。もちろん任意の名前でもかまいません。</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%866%E5%8F%A3%E3%83%91%E3%82%AF%E3%81%AE%E8%A8%AD%E5%AE%9A--1">手順６．口パクの設定</h2>
+
+<p>「再読み込み」ボタンをクリック</p>
+<p><img src="images/reload-marisa.png" alt></p>
+<p>→パーツの一覧から「口」の右向き三角をクリックしてツリーを開く<br>
+→「00」にチェックをつける<br>
+→「01」にチェックをつける<br>
+→「02」にチェックをつける<br>
+→「03」にチェックをつける<br>
+→「04」にチェックをつける<br>
+→「05」にチェックをつける<br>
+→「07」にチェックをつける（*5）<br>
+→「選択したファイルでアニメーションを作成」ボタンをクリック</p>
+<p>*5：どうして「06」にチェックをしないの？<br>
+サムネイルを表示すると分かるのですが、「06.png」だけ口パクとは異なる素材のためです。</p>
+<p><img src="images/create-lips-marisa.png" alt></p>
+<p>→「00」を選択<br>
+　　サムネイルが表示される<br>
+→パーツ名に「00口パク」と入力<br>
+→「Enter」キーで決定<br>
+　　パーツの一覧で名前が「00口パク」と更新される<br>
+→「00口パク」の右向き三角をクリックしてツリーを開く<br>
+→任意のサムネイルをクリック<br>
+→「▲」ボタンと「▼」ボタンをクリックして、パーツの順序を下記の通りにする<br>
+　　「00.png」<br>
+　　「00.0.png」<br>
+　　「00.1.png」<br>
+　　「00.2.png」<br>
+　　「00.3.png」<br>
+　　「00.4.png」<br>
+　　「00.5.png」</p>
+<p><img src="images/switch-lips-marisa.png" alt></p>
+<p>→「動く立ち絵素材マネージャー」ウィンドウを右上の「×」で閉じる</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%867%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%81%AE%E8%A8%AD%E5%AE%9A--1">手順７．キャラクターの設定</h2>
+
+<p>メニューバーの「ファイル」<br>
+→「キャラクターの編集」<br>
+　　「キャラクター設定」ウィンドウが開く<br>
+→キャラクターの一覧から「ゆっくり魔理沙」を選択して、下記の通りに編集する</p>
+<h3 class="mume-header" id="-%E3%83%9C%E3%82%A4%E3%82%B9--1">ボイス</h3>
+
+<p>→音量「100」に設定する</p>
+<h3 class="mume-header" id="-%E7%AB%8B%E3%81%A1%E7%B5%B5-">立ち絵</h3>
+
+<p>→種類「動く立ち絵」を選択<br>
+→「フォルダを開く」ボタンをクリック<br>
+→「ゆっくり魔理沙」フォルダーを開く<br>
+→「フォルダーの選択」をクリック<br>
+→まばたき開始「1秒」（*6）<br>
+→まばたき間隔「1秒」（*6）</p>
+<p>*6<br>
+ここでの設定は目パチをテストするための設定です。<br>
+あとで元に戻すか、任意の値に変更してください。</p>
+<h3 class="mume-header" id="-%E7%AB%8B%E3%81%A1%E7%B5%B5--%E7%AB%8B%E3%81%A1%E7%B5%B5%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0--1">立ち絵 / 立ち絵アイテム</h3>
+
+<p>→拡大率「500%」（*7）</p>
+<p>→目「未選択」をクリック<br>
+→「00目パチ.png」を選択<br>
+→口「未選択」をクリック<br>
+→「00口パク.png」を選択<br>
+→体「未選択」をクリック<br>
+→「00.png」を選択</p>
+<p><img src="images/standing-picture-item-marisa.png" alt></p>
+<p>→「キャラクター設定」ウィンドウを右上の「×」で閉じる</p>
+<p>*7<br>
+ここでの設定はあくまで仮の設定です。<br>
+（元の画像サイズが小さいため、拡大している）<br>
+あとで元に戻すか、任意の値に変更してください。</p>
+<h2 class="mume-header" id="-%E6%89%8B%E9%A0%868%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E5%86%8D%E7%94%9F--1">手順８．プレビュー再生</h2>
+
+<p>→ツールバーの「立ち絵アイテム」をクリック<br>
+　　立ち絵が表示される</p>
+<p><img src="images/toolbar-marisa.png" alt></p>
+<p>→セリフ入力欄に任意のテキストを入力<br>
+　　ここでは「ゆっくりしていってね」と入力<br>
+→「追加」ボタンをクリック（*8）<br>
+→「再生」ボタンをクリック（*9）</p>
+<p><img src="images/preview-marisa.png" alt></p>
+<p>ゆっくりボイスが聞こえたらOKです。</p>
+<p>*8<br>
+または「Enter」キーを押下する操作でもかまいません。</p>
+<p>*9<br>
+または「Space」キーを押下する操作でもかまいません。</p>
+<h2 class="mume-header" id="-%E3%81%BE%E3%81%A8%E3%82%81--1">まとめ</h2>
+
+<p>最終的に</p>
+<ul>
+<li>立ち絵が表示できた</li>
+<li>ゆっくりボイスが再生できた</li>
+<li>目パチができた</li>
+<li>口パクができた</li>
+</ul>
+<p>――以上４つのことが確認できたら、OKです。</p>
+<hr>
+<p><strong>おわりに</strong></p>
+<p>本書は以上で終了となります。</p>
+<p>もしも本書の内容がよかったと思っていただけたら、「いいね」や「リツイート」などで反応していただけると幸いです。<br>
+又、本書の内容で分かりづらい点などがございましたら、改善の参考とさせていただきますので、下記のメールアドレスまでお気軽にご意見をお寄せください。<br>
+<a href="mailto:NovemberBooks.com@gmail.com">NovemberBooks.com@gmail.com</a></p>
+<hr>
+<p>ゆっくりMovieMaker4<br>
+立ち絵導入ガイド</p>
+<p>発行　　2023年02月11日<br>
+著者　　NovemberBooks</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
